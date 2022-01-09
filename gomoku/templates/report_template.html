@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <title>{{ rep_name }}</title>
+</head>
+<body>
+  <div class="jumbotron">
+   <h1 class="container-fluid text-center">GAME REPORT: {{ rep_name }}<br>
+    <small>time: {{ summary['time'] }} s</small>
+  </h1>
+  </div>
+
+  {% for fig in summary['figures'] %}
+    <img src="{{ fig }}" class="img-fluid text-center">
+  {% endfor %}
+
+  {% for res in data %}
+
+    {% if res[0] == "res"  %}
+      <button type="button" class="btn btn-info btn-block text-center" data-toggle="collapse" data-target="#coll{{ loop.index }}">
+        <h2>
+          Epoch <strong>{{ loop.index }}</strong>: player {{ res[1]['p1_params']['name'] }}
+          {% if res[1]['onlyplay'] %}
+            playing
+          {% else %}
+            training
+          {% endif %}
+          vs. player {{ res[1]['p2_params']['name'] }}
+          for {{ res[1]['rounds'] }} rounds (time: {{ res[1]['time'] }} s)
+        </h2>
+      </button>
+      <div id="coll{{ loop.index }}" class="collapse">
+        <div class="row">
+          <div class="col">
+            <h3 class="container-fluid text-center">Player 1</h3>
+            <table class="table table-striped">
+              {% for key, val in res[1]['p1_params'].items() %}
+                <tr>
+                  <td>{{ key }}</td>
+                  <td><pre>{{ val }}</pre></td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="col">
+            <h3 class="container-fluid text-center">Player 2</h3>
+            <table class="table table-striped">
+              {% for key, val in res[1]['p2_params'].items() %}
+                <tr>
+                  <td>{{ key }}</td>
+                  <td><pre>{{ val }}</pre></td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <h3 class="container text-center bg-success">
+            Ratios: {{ res[1]['p1_params']['name'] }} wins: {{ res[1]['p1_wins']/res[1]['rounds'] }},
+            {{ res[1]['p2_params']['name'] }} wins: {{ res[1]['p2_wins']/res[1]['rounds'] }},
+            draws: {{ res[1]['draws']/res[1]['rounds'] }}.
+            Mean count: {{ res[1]['total_count']/res[1]['rounds'] }}
+          </h3>
+        </div>
+
+        {% for fig in res[1]['figures'] %}
+          <img src="{{ fig }}" class="img-fluid text-center">
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if res[0] == "deep_train" %}
+      <button type="button" class="btn btn-info btn-block text-center" data-toggle="collapse" data-target="#coll{{ loop.index }}">
+        <h2>
+          Epoch <strong>{{ loop.index }}</strong>: player {{ res[1]['p_params']['name'] }} deep trained
+          (time: {{res[1]['history']['time']}} s)
+        </h2>
+      </button>
+      <div id="coll{{ loop.index }}" class="collapse">
+        <table class="table table-striped">
+        {% for key, val in res[1]['p_cnn_params'].items() %}
+          <tr>
+            <td>{{ key }}</td>
+            <td><pre>{{ val }}</pre></td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+
+    <br>
+
+  {% endfor %}
+
+</body>
+</html>
