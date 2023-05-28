@@ -26,7 +26,7 @@ P2_SYMBOL = -1
 P_SAVE_EXT_PARAMS = ".params"
 P_SAVE_EXT_CNN = ".cnn"
 
-BASE_DATA_DIR = os.path.expanduser("~/projects/python/gomoku_rdl/data/")
+BASE_DATA_DIR = os.path.expanduser("~/Documents/work/science/projects/gomoku/gomoku-drl_run_experiments/data/")
 
 STATS_SAVE_EXT = ".gomokustat"
 TEMPLATES_DIR = "templates"

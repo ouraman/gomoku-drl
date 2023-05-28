@@ -18,28 +18,28 @@ t1 = time.time()
 p1 = player.DRLPlayer("p1")
 # p1.load("data/report_01/mod_player/p1_m2")
 # p1.load("data/report_03-01-02-01-01-01-01-01-01/mod_player/p1_m1")
-# p2 = player.DRLPlayer("p2")
-p2 = player.ExtAIPlayer("wine ext_brains/pbrain-Tito2014.exe")
+p2 = player.DRLPlayer("p2")
+# p2 = player.ExtAIPlayer("wine ext_brains/pbrain-Tito2014.exe")
 # p2 = player.ExtAIPlayer("wine ext_brains/pbrain-embryo19_s.exe")
 
 command_list = [
-                ("train", p1, p2, 2000, {"exp_rate": 0.3},
+                ("train", p1, p2, 8, {"exp_rate": 0.3},
+                                        None),
+                ("deep_train", p1),
+                ("train", p1, p2, 8, {"exp_rate": 0.1},
                                         None),
                 # ("deep_train", p1),
-                ("train", p1, p2, 2000, {"exp_rate": 0.1},
+                ("train", p1, p2, 8, {"exp_rate": 0.05},
                                         None),
                 # ("deep_train", p1),
-                ("train", p1, p2, 2000, {"exp_rate": 0.05},
+                ("train", p1, p2, 8, {"exp_rate": 0.01},
                                         None),
                 # ("deep_train", p1),
-                ("train", p1, p2, 2000, {"exp_rate": 0.01},
-                                        None),
+                # ("train", p1, p2, 8, {"exp_rate": 0.001},
+                                        # None),
                 # ("deep_train", p1),
-                ("train", p1, p2, 2000, {"exp_rate": 0.001},
-                                        None),
-                # ("deep_train", p1),
-                ("train", p1, p2, 2000, {"exp_rate": 0},
-                                        None)
+                # ("train", p1, p2, 8, {"exp_rate": 0},
+                                        # None)
                 # ("train", p1, p2, 2000, {"exp_rate": 0,
                 #                          "lr": 0.4},
                 #                         None)
